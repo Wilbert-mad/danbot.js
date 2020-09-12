@@ -1,3 +1,3 @@
-const danbotjs = require('../src');
+const danbotjs = require('../src/index');
 
-danbotjs;
+new danbotjs.Host();
