@@ -1,0 +1,30 @@
+{
+  "name": "danbot.js",
+  "version": "1.0.0",
+  "description": "A wrap for Dan Bot-Hosting.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wilbert-mad/danbot.js.git"
+  },
+  "keywords": [
+    "danbot",
+    "hosting",
+    "danbot-hosting",
+    "host"
+  ],
+  "author": "Wilbert-mad <Discord: Xa_puppet>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wilbert-mad/danbot.js/issues"
+  },
+  "homepage": "https://github.com/Wilbert-mad/danbot.js#readme",
+  "devDependencies": {
+    "discord.js": "^12.3.1",
+    "eslint": "^7.8.1",
+    "node-fetch": "^2.6.1"
+  }
+}
