@@ -40,6 +40,7 @@ class Base extends EventEmitter {
   }
 
   /**
+   * Post bot stats
    * @returns {Promise<void>}  
    */
   async post() {
@@ -58,7 +59,7 @@ class Base extends EventEmitter {
     };
 
     const res = await Utils.request('post', {
-      path: `${this._BaseURL}/bot/${this.Bot.user.id}/stats`,
+      path: `${this._BaseURL}/bot/${(await Utils.getUser(this))}/stats`,
       Body: JSON.stringify(Body),
     });
 
@@ -102,7 +103,7 @@ class Base extends EventEmitter {
    */
   async info() {
     const res = await Utils.request('get', {
-      path: `${this._BaseURL}/bot/${this.Bot.user.id}/info`,
+      path: `${this._BaseURL}/bot/${(await Utils.getUser(this))}/info`,
     });
 
     const data = await res.json();
