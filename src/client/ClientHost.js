@@ -14,15 +14,37 @@ class ClientHost extends Base {
     super(client, key);
 
     // Check for client
-    if (!this.clientOrManager) throw new Error('Client class not found');
+    if (!this.Bot || !(this.Bot instanceof require('discord.js').Client)) 
+      throw new Error('Instanceof Client not found');
     
     // Check for key and type
-    if (!key || typeof key !== 'string') throw new Error('KEY_INVALID');
+    if (!this.key || typeof this.key !== 'string') throw new Error('KEY_INVALID');
 
     // If key is formated wrong it will reformat
-    if (!key.startsWith('danbot-')) key = `danbot-${key}`;
+    if (!this.key.startsWith('danbot-')) this.key = `danbot-${this.key}`;
+  }
 
-    console.log(key);
+  /**
+   * @returns {Promise<void>}
+   */
+  async autoPost(Time = 60000) {
+    if (Time < 60000) throw new Error('Time must be above or 60000');
+    if (typeof Time !== 'number') throw new Error('Invalid input "Time"');
+    const setPost = this.post();
+
+    const post = new Promise((resolve, reject) => {
+      try {
+        setPost();
+
+        setInterval(async() => {
+          await this.post();
+        }, Time);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return post;
   }
 }
 

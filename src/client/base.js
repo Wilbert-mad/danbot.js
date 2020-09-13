@@ -1,5 +1,5 @@
 const EventEmitter = require('events');
-const fetch = require('node-fetch');
+const Utils = require('../utils/Utils');
 
 /**
  * The base class for all
@@ -18,6 +18,12 @@ class Base extends EventEmitter {
     this._BaseURL = 'https://danbot.host/api';
 
     /**
+     * @type {*}
+     * @private 
+     */
+    this.Bot = Bot;
+
+    /**
      * User Api key
      * @type {string}
      * @public
@@ -31,38 +37,32 @@ class Base extends EventEmitter {
      * @private 
      */
     this._V12 = (require('discord.js').version.split('.')[0] === '12' ? 'v12' : 'v11') === 'v12';
-
-    /**
-     * Client or manager class
-     * @type {import('discord.js').Client | import('discord.js').ShardingManager}
-     * @private
-     */
-    this._clientOrManager = Bot;
   }
 
+  /**
+   * @returns {Promise<void>}  
+   */
   async post() {
     let guildCount = 0;
     let userCount = 0;
-
-    guildCount = this._V12 ? this.clientOrManager.guilds.catch.size : this.clientOrManager.guilds.size;
-    userCount = this._V12 ? this.clientOrManager.users.catch.size : this.clientOrManager.users.size;
+    
+    guildCount = Utils.getGuilds(this).size;
+    userCount = Utils.getUsers(this).size;
 
     const Body = {
-      id: this.clientOrManager.user.id,
-      guilds: guildCount.toString(),
+      id: (await Utils.getUserID(this)),
+      key: this.key,
+      servers: guildCount.toString(),
       users: userCount.toString(),
-      clientUser: this.clientOrManager.user,
+      client: (await Utils.getUser(this)),
     };
 
-    const res = await fetch(`${this._BaseURL}/bot/${this.clientOrManager.user.id}/stats`, {
-      method: 'post',
-      body: JSON.stringify(Body),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    const res = await Utils.request('post', {
+      path: `${this._BaseURL}/bot/${this.Bot.user.id}/stats`,
+      Body: JSON.stringify(Body),
     });
 
-    await new Promise((resolve, reject) => {
+    const post = new Promise((resolve, reject) => {
       try {
         // server error
         if (res.status >= 500)
@@ -72,9 +72,20 @@ class Base extends EventEmitter {
         const data = res.json();
 
         if (res.status === 200) {
+          // good
           if (!data.error) {
+            if (data === undefined) 
+              throw new Error('Data not found');
             resolve();
           }
+        } else if (res.status == 400) {
+          // Bad request
+          if (res.error)
+            new Error(res.message);
+        } else if (res.status == 429) {
+          // Rate limit hit
+          if (res.error)
+            new Error(res.message);
         } else {
           // any other error
           throw new Error('An unknown error has occurred');
@@ -83,6 +94,51 @@ class Base extends EventEmitter {
         reject(error);
       }
     });
+    return post;
+  }
+
+  /**
+   * @returns {Promise<ClientInfo>}  
+   */
+  async info() {
+    const res = await Utils.request('get', {
+      path: `${this._BaseURL}/bot/${this.Bot.user.id}/info`,
+    });
+
+    const data = await res.json();
+
+    const get = new Promise((resolve, reject) => {
+      try {
+        // server error
+        if (res.status >= 500)
+          throw new Error(`DanBot Hosting server error, statusCode: ${res.status}`);
+
+        if (res.status === 200) {
+          // good
+          if (!data.error) {
+            if (data === undefined) 
+              throw new Error('Data not found');
+            
+            resolve(data);
+          }
+        } else if (res.status == 400) {
+          // Bad request
+          if (res.error)
+            new Error(res.message);
+        } else if (res.status == 429) {
+          // Rate limit hit
+          if (res.error)
+            new Error(res.message);
+        } else {
+          // any other error
+          throw new Error('An unknown error has occurred');
+        }
+        
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return get;
   }
 }
 

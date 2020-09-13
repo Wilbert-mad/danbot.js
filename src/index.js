@@ -1,4 +1,8 @@
 module.exports = {
-  Client: require('./client/ClientHost.js'),
-  Host: require('./client/ClientHost.js'),
+  Client: require('./client/ClientHost'),
+  Host: require('./client/ClientHost'),
+
+  Utils: require('./utils/Utils'),
+
+  Version: require('../package.json').version,
 };
