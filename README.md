@@ -115,19 +115,19 @@ host.on('post', () => {
 
   property: 
 
-      - id: [Snowflake](https://discord.js.org/#/docs/main/stable/typedef/Snowflake)
+      - id: Snowflake
 
-      - servers: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+      - servers: string
 
-      - users: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+      - users: string
 
-      - owner: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+      - owner: string
 
-      - deleted: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
+      - deleted: boolean
 
-      - added: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
+      - added: number
 
-      - client: [ClientUser](https://discord.js.org/#/docs/main/stable/class/ClientUser)
+      - client: ClientUser
 
 
 ## methods
