@@ -75,11 +75,11 @@ host.on('post', () => {
       new danbotjs.Host(client, 'key')
     ```
       * autoPost(Time)
-          - Time?: Number, optional
+          - Time?: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), optional
 
           `Amount of time betwen each post !must be 60000 or above!`,
-          
-          returns: Promise<void>
+
+          returns: Promise<[void](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)>
       ```js
         host.autoPost(80000);
       ```
@@ -89,7 +89,7 @@ host.on('post', () => {
       new danbotjs.Host(client, 'key')
     ```
       * post()
-          - returns: Promise<void>
+          - returns: Promise<[void](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)>
        ```js
         host.post();
        ```
@@ -99,6 +99,15 @@ host.on('post', () => {
         host.info();
       ```
 
+      * key
+        - returns: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+        ```css
+        - This should be kept private at all times.
+        ```
+      ```js
+        host.key;
+      ```
+
 # Types 
 
 ## ServerInfo
@@ -106,19 +115,19 @@ host.on('post', () => {
 
   property: 
 
-      - id: Snowflake
+      - id: [Snowflake](https://discord.js.org/#/docs/main/stable/typedef/Snowflake)
 
-      - servers: string
+      - servers: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
-      - users: string
+      - users: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
-      - owner: string
+      - owner: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
-      - deleted: boolean
+      - deleted: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 
-      - added: number
+      - added: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
-      - client: ClientUser
+      - client: [ClientUser](https://discord.js.org/#/docs/main/stable/class/ClientUser)
 
 
 ## methods
