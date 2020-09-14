@@ -131,4 +131,4 @@ host.on('post', () => {
 
 
 ## methods
-- 'get', 'post', 'put', 'patch', 'delete'
+- [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String): 'get', 'post', 'put', 'patch', 'delete'
