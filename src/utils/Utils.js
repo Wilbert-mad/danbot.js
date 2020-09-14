@@ -1,4 +1,5 @@
-const fetch = require('node-fetch');
+const https = require('https');
+const qs = require('querystring');
 
 class Utils {
   constructor() {
@@ -7,36 +8,68 @@ class Utils {
 
   /**
    * send request to host
-   * @param {string} type request type
-   * @param {object} ops options for request
-   * @param {string} ops.path request path
-   * @param {string | Blob | Buffer} [ops.Body] request path
+   * @param {string} method request type
+   * @param {string} endpoint request path
+   * @param {object} data options for request
    * @returns {Promise<void>}
    */
-  static async request(type, ops) {
-    if (typeof type !== 'string') throw new Error('type is a string');
-    if (typeof ops !== 'object') throw new Error('ops is a object');
-    if (typeof ops.path !== 'string') throw new Error('Path is a string');
+  static async request(method, endpoint, data) {
+    if (typeof method !== 'string') throw new Error('type is a string');
+    if (typeof endpoint !== 'string') throw new Error('endpoint is a string');
 
     // method types
     const types = ['get', 'post', 'put', 'patch', 'delete'];
 
     // check type
-    if (!types.includes(type)) 
-      throw new Error('Type not fount in method types');
+    if (!types.includes(method)) 
+      throw new Error('Type not found in method types');
 
-    if (ops.Body) {
-      return fetch(ops.path, {
-        method: type,
-        body: ops.Body,
-        headers: { 'Content-Type': 'application/json' },
+    return new Promise((resolve, reject) => {
+      const response = {
+        raw: '',
+        body: null,
+        status: null,
+        headers: null,
+      };
+
+      const options = {
+        hostname: 'danbot.host',
+        path: `/api/${endpoint}`,
+        method,
+        headers: {},
+      };
+
+      if (data && method === 'post') options.headers['content-type'] = 'application/json';
+      if (data && method === 'get') options.path += `?${qs.encode(data)}`;
+
+      const request = https.request(options, (res) => {
+        response.status = res.statusCode;
+        response.headers = res.headers;
+        response.ok = res.statusCode >= 200 && res.statusCode < 300;
+        response.statusText = res.statusMessage;
+        res.on('data', (chunk) => {
+          response.raw += chunk;
+        });
+
+        res.on('end', () => {
+          response.body = res.headers['content-type'].includes('application/json') ? JSON.parse(response.raw) : response.raw;
+          if (response.ok) {
+            resolve(response);
+          } else {
+            const error = new Error(`${res.statusCode} ${res.statusMessage}`);
+            Object.assign(error, response);
+            reject(error);
+          }
+        });
       });
-    } else {
-      return fetch(ops.path, {
-        method: type,
-        headers: { 'Content-Type': 'application/json' },
+
+      request.on('error', (error) => {
+        reject(error);
       });
-    }
+
+      if (data && method === 'post') request.write(JSON.stringify(data));
+      request.end();
+    });
   }
 
   /**

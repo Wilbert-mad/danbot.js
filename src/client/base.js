@@ -10,14 +10,6 @@ class Base extends EventEmitter {
     super(Bot, ApiKey);
 
     /**
-     * Api base url
-     * @type {string}
-     * @readonly
-     * @private 
-     */
-    this._BaseURL = 'https://danbot.host/api';
-
-    /**
      * @type {*}
      * @private 
      */
@@ -53,18 +45,17 @@ class Base extends EventEmitter {
     const userID = (await Utils.getUserID(this)); 
     const clientUser = (await Utils.getUser(this));
 
-    const Body = {
+    const dataBody = {
       id: userID,
       key: this.key,
       servers: guildCount.toString(),
       users: userCount.toString(),
-      client: clientUser,
+      clientInfo: clientUser,
     };
 
-    const res = await Utils.request('post', {
-      path: `${this._BaseURL}/bot/${userID}/stats`,
-      Body: JSON.stringify(Body),
-    });
+    const res = await Utils.request('post', `bot/${userID}/stats`, dataBody);
+
+    console.log(res);
 
     const post = new Promise((resolve, reject) => {
       try {
@@ -73,7 +64,7 @@ class Base extends EventEmitter {
           throw new Error(`DanBot Hosting server error, statusCode: ${res.status}`);
 
         // json body
-        const data = res.json();
+        const data = res.body;
 
         if (res.status === 200) {
           // good
@@ -107,11 +98,9 @@ class Base extends EventEmitter {
    * @returns {Promise<ClientInfo>}  
    */
   async info() {
-    const res = await Utils.request('get', {
-      path: `${this._BaseURL}/bot/${(await Utils.getUserID(this))}/info`,
-    });
+    const res = await Utils.request('get', `bot/${(await Utils.getUserID(this))}/info`);
 
-    const data = await res.json();
+    const data = await res.body;
 
     const get = new Promise((resolve, reject) => {
       try {

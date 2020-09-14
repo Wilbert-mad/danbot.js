@@ -5,13 +5,12 @@ declare module 'danbot.js' {
   export class Base extends EventEmitter {
     public constructor(Bot: Client | ShardingManager, ApiKey: string)
 
-    private readonly _BaseURL: string;
     private Bot: Client | ShardingManager;
     private _V12: boolean;
     public key: string;
 
     public post(): Promise<void>
-    public info(): Promise<void>
+    public info(): Promise<ServerInfo>
   }
 
   export class HostClient extends Base {
@@ -37,7 +36,7 @@ declare module 'danbot.js' {
   }
 
   export class Utils {
-    public static request(type: 'get' | 'post' | 'put' | 'patch' | 'delete', ops: requestOps): Promise<void>
+    public static request(method: methods, endpoint: string, data: Object): Promise<void>
     public static shardingGetGuild(data: Base): number;
     public static shardingGetUsers(data: Base): number;
     public static getGuilds(data: Base): Collection<Snowflake, Guild>;
@@ -48,10 +47,19 @@ declare module 'danbot.js' {
 
   export const Version: string;  
 
-  export interface requestOps {
-    path: string;
-    Body: string | Blob | Buffer
-  }
+  type methods = 
+  | 'get' 
+  | 'post' 
+  | 'put' 
+  | 'patch' 
+  | 'delete';
 
-  
+  type ServerInfo = {
+    id: Snowflake,
+    servers: string,
+    users: string,
+    owner: string,
+    deleted: boolean,
+    added: number
+  }
 }

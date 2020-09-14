@@ -27,12 +27,11 @@ class ClientHost extends Base {
   /**
    * @returns {Promise<void>}
    */
-  async autoPost(Time = 60000) {
-    if (Time < 60000) throw new Error('Time must be above or 60000');
-    if (typeof Time !== 'number') throw new Error('Invalid input "Time"');
-
+  async autoPost(Time = 60000) { 
     const post = new Promise((resolve, reject) => {
       try {
+        if (Time < 60000) throw new Error('Time must be above or 60000');
+        if (typeof Time !== 'number') throw new Error('Invalid input "Time" as number');
         this.emit('autoPosting');
         this.post();
 
@@ -41,6 +40,7 @@ class ClientHost extends Base {
         }, Time);
         resolve();
       } catch (error) {
+        this.emit('error', (error));
         reject(error);
       }
     });

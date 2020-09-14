@@ -1,5 +1,5 @@
 const Auth = require('./Auth');
-const danbotjs = require('../');
+const danbotjs = require('../src');
 const { Client } = require('discord.js');
 const client = new Client();
 
@@ -9,8 +9,9 @@ const host = new danbotjs.Host(client, Auth.key);
 client.on('ready', async () => {
   console.log('ready');
   console.log(await danbotjs.Utils.getUserID(host));
-  console.log(await host.info());
-  await host.autoPost().catch(console.log);
+  host.post().catch(console.log);
+  // console.log(await host.info());
+  // await host.autoPost(10).catch(() => {});
 });
 
 host.on('post', () => console.log('I have posted'));

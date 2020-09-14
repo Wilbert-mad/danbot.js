@@ -19,7 +19,7 @@ npm install danbot.js
 # How to get API Key
 
 * Join our Discord ([link](https://discord.gg/py4Nf4m))
-* Go into our #bot-commands channel
+* Go into our [#bot-commands](https://discordapp.com/channels/639477525927690240/738532075476615288) channel
 * Type DBH!ApiKey and you'll get an API Key!
 
 # Examples
@@ -31,7 +31,7 @@ const client = new Discod.Client();
 
 client.login('Token');
 
-const Host = new danbotjs.Host(client, 'key');
+const host = new danbotjs.Host(client, 'key');
 
 client.on('ready', async () => {
   console.log('ready');
@@ -39,5 +39,9 @@ client.on('ready', async () => {
   const res = await host.info();
   await host.post();
   console.log(res);
+});
+
+host.on('post', () => {
+  console.log('I have Posted');
 });
 ```
