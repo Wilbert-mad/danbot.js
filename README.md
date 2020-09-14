@@ -51,11 +51,11 @@ host.on('post', () => {
 ## Events
 
  - post
-  ```js
-  host.on('post', () => {
-    // do something
-  });
-  ```
+    ```js
+    host.on('post', () => {
+      // do something
+    });
+    ```
  - autoPosting
     ```js
     host.on('autoPosting', () => {
@@ -92,22 +92,30 @@ host.on('post', () => {
         host.post();
        ```
       * info()
-          - returns: Promise<[ServerInfo](#ServerInfo)>
-        ```js
-          host.info();
-        ```
+        - returns: Promise<[ServerInfo](#ServerInfo)>
+      ```js
+        host.info();
+      ```
 
 # Types 
 
 ## ServerInfo
 - Type: Object,
+
   property: 
+
       - id: Snowflake
+
       - servers: string
+
       - users: string
+
       - owner: string
+
       - deleted: boolean
+
       - added: number
+
       - client: ClientUser
 
 
