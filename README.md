@@ -76,7 +76,9 @@ host.on('post', () => {
     ```
       * autoPost(Time)
           - Time?: Number, optional
+
           `Amount of time betwen each post !must be 60000 or above!`,
+          
           returns: Promise<void>
       ```js
         host.autoPost(80000);
