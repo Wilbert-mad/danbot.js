@@ -15,7 +15,8 @@
     "danbot",
     "hosting",
     "danbot-hosting",
-    "host"
+    "host",
+    "api"
   ],
   "author": "Wilbert-mad <Discord: Xa_puppet>",
   "license": "MIT",

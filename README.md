@@ -45,3 +45,71 @@ host.on('post', () => {
   console.log('I have Posted');
 });
 ```
+
+# Docs
+
+## Events
+
+ - post
+  ```js
+  host.on('post', () => {
+    // do something
+  });
+  ```
+ - autoPosting
+    ```js
+    host.on('autoPosting', () => {
+      // do something
+    });
+    ```
+ - error
+   ```js
+    host.on('error', (error) => {
+      // do something
+    });
+    ```
+## Classes
+
+  - **Host** extends Base
+    ```js
+      new danbotjs.Host(client, 'key')
+    ```
+      * autoPost(Time)
+          - Time?: Number, optional
+          `Amount of time betwen each post !must be 60000 or above!`,
+          returns: Promise<void>
+      ```js
+        host.autoPost(80000);
+      ```
+
+  - **Base** extends EventEmitter
+    ```js
+      new danbotjs.Host(client, 'key')
+    ```
+      * post()
+          - returns: Promise<void>
+       ```js
+        host.post();
+       ```
+      * info()
+          - returns: Promise<[ServerInfo](#ServerInfo)>
+        ```js
+          host.info();
+        ```
+
+# Types 
+
+## ServerInfo
+- Type: Object,
+  property: 
+      - id: Snowflake
+      - servers: string
+      - users: string
+      - owner: string
+      - deleted: boolean
+      - added: number
+      - client: ClientUser
+
+
+## methods
+- 'get', 'post', 'put', 'patch', 'delete'
