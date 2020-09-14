@@ -74,7 +74,7 @@ host.on('post', () => {
     ```js
       new danbotjs.Host(client, key)
     ```
-    Paremeter: (client: [Client](https://discord.js.org/#/docs/main/stable/class/Client), [key](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))
+    Paremeter: (client: [Client](https://discord.js.org/#/docs/main/stable/class/Client), key: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))
 
 
       * autoPost(Time)
@@ -91,7 +91,7 @@ host.on('post', () => {
     ```js
       new danbotjs.Host(Bot, key)
     ```
-    Paremeter: (Bot: [Client](https://discord.js.org/#/docs/main/stable/class/Client) or [ShardingManager](https://discord.js.org/#/docs/main/stable/class/ShardingManager), [key](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))
+    Paremeter: (Bot: [Client](https://discord.js.org/#/docs/main/stable/class/Client) or [ShardingManager](https://discord.js.org/#/docs/main/stable/class/ShardingManager), key: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))
 
 
       * post()
