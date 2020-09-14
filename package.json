@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Wilbert-mad/danbot.js.git"
   },
+  "types": "./typings/index.d.ts",
   "keywords": [
     "danbot",
     "hosting",
