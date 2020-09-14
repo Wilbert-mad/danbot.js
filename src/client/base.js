@@ -50,16 +50,19 @@ class Base extends EventEmitter {
     guildCount = Utils.getGuilds(this).size;
     userCount = Utils.getUsers(this).size;
 
+    const userID = (await Utils.getUserID(this)); 
+    const clientUser = (await Utils.getUser(this));
+
     const Body = {
-      id: (await Utils.getUserID(this)),
+      id: userID,
       key: this.key,
       servers: guildCount.toString(),
       users: userCount.toString(),
-      client: (await Utils.getUser(this)),
+      client: clientUser,
     };
 
     const res = await Utils.request('post', {
-      path: `${this._BaseURL}/bot/${(await Utils.getUser(this))}/stats`,
+      path: `${this._BaseURL}/bot/${userID}/stats`,
       Body: JSON.stringify(Body),
     });
 
@@ -77,6 +80,7 @@ class Base extends EventEmitter {
           if (!data.error) {
             if (data === undefined) 
               throw new Error('Data not found');
+            this.emit('post');
             resolve();
           }
         } else if (res.status == 400) {
@@ -92,6 +96,7 @@ class Base extends EventEmitter {
           throw new Error('An unknown error has occurred');
         }
       } catch (error) {
+        this.emit('error', (error));
         reject(error);
       }
     });
@@ -103,7 +108,7 @@ class Base extends EventEmitter {
    */
   async info() {
     const res = await Utils.request('get', {
-      path: `${this._BaseURL}/bot/${(await Utils.getUser(this))}/info`,
+      path: `${this._BaseURL}/bot/${(await Utils.getUserID(this))}/info`,
     });
 
     const data = await res.json();
@@ -136,6 +141,7 @@ class Base extends EventEmitter {
         }
         
       } catch (error) {
+        this.emit('error', (error));
         reject(error);
       }
     });

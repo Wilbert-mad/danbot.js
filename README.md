@@ -2,12 +2,23 @@
 
 A wrap for Dan Bot-Hosting.
 
-* Discord: https://discord.gg/rYzHH5N
+* Discord: https://discord.gg/py4Nf4m
 * Site: https://panel.danbot.host
+
+# Install
+
+Node.js 12.0.0 or newer is required.
+As that is what discord.js requires.
+
+NOTE: `Discord is require to run module.`
+
+```
+npm install danbot.js
+```
 
 # How to get API Key
 
-* Join our Discord (link above)
+* Join our Discord ([link](https://discord.gg/py4Nf4m))
 * Go into our #bot-commands channel
 * Type DBH!ApiKey and you'll get an API Key!
 

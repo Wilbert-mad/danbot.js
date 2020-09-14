@@ -18,6 +18,13 @@ class Utils {
     if (typeof ops !== 'object') throw new Error('ops is a object');
     if (typeof ops.path !== 'string') throw new Error('Path is a string');
 
+    // method types
+    const types = ['get', 'post', 'put', 'patch', 'delete'];
+
+    // check type
+    if (!types.includes(type)) 
+      throw new Error('Type not fount in method types');
+
     if (ops.Body) {
       return fetch(ops.path, {
         method: type,

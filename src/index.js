@@ -1,5 +1,5 @@
 module.exports = {
-  Client: require('./client/ClientHost'),
+  HostClient: require('./client/ClientHost'),
   Host: require('./client/ClientHost'),
 
   Utils: require('./utils/Utils'),

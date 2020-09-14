@@ -30,11 +30,11 @@ class ClientHost extends Base {
   async autoPost(Time = 60000) {
     if (Time < 60000) throw new Error('Time must be above or 60000');
     if (typeof Time !== 'number') throw new Error('Invalid input "Time"');
-    const setPost = this.post();
 
     const post = new Promise((resolve, reject) => {
       try {
-        setPost();
+        this.emit('autoPosting');
+        this.post();
 
         setInterval(async() => {
           await this.post();
