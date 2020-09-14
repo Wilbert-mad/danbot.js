@@ -59,6 +59,7 @@ declare module 'danbot.js' {
     servers: string,
     users: string,
     owner: string,
+    client: ClientUser, 
     deleted: boolean,
     added: number
   }
