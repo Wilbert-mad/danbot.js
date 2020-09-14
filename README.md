@@ -72,8 +72,11 @@ host.on('post', () => {
 
   - **Host** extends Base
     ```js
-      new danbotjs.Host(client, 'key')
+      new danbotjs.Host(client, key)
     ```
+    Paremeter: (client: [Client](https://discord.js.org/#/docs/main/stable/class/Client), [key](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))
+
+
       * autoPost(Time)
           - Time?: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), optional
 
@@ -86,8 +89,11 @@ host.on('post', () => {
 
   - **Base** extends EventEmitter
     ```js
-      new danbotjs.Host(client, 'key')
+      new danbotjs.Host(Bot, key)
     ```
+    Paremeter: (Bot: [Client](https://discord.js.org/#/docs/main/stable/class/Client) or [ShardingManager](https://discord.js.org/#/docs/main/stable/class/ShardingManager), [key](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))
+
+
       * post()
           - returns: Promise<[void](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)>
        ```js
