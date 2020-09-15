@@ -10,7 +10,7 @@ A wrap for Dan Bot-Hosting.
 Node.js 12.0.0 or newer is required.
 As that is what discord.js requires.
 
-NOTE: `Discord is require to run module.`
+**NOTE**: `"discord.js" is require to run module.`
 
 ```
 npm install danbot.js
@@ -35,18 +35,18 @@ const client = new Discod.Client();
 // Log in the Client
 client.login('Token');
 // NOTE: It is important to login to discord
-// before creating the host class
+// before creating instanceof host
 
-// Create your host class
+// Create instanceof host
 const host = new danbotjs.Host(client, 'key');
 
-// Client class ready event
+// Client "ready" event
 client.on('ready', async () => {
   console.log('ready');
   
   // Await server bot info
   const res = await host.info();
-  // post current info to server
+  // post current bot info to server
   await host.post();
   // Log Server bot response
   console.log(res);
@@ -56,7 +56,7 @@ client.on('ready', async () => {
  * the clients "ready" event!
  */
  
-// Host evnt emited on .post()
+// Host event emited on .post()
 host.on('post', () => {
   console.log('I have Posted');
 });
@@ -66,6 +66,7 @@ Message Event Examples
 ```js
 client.on('message', (msg) => {
   if (msg.content === 'post') {
+    // Await server info
     host.post();
   }
 });
