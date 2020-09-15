@@ -104,7 +104,9 @@ client.on('message', (msg) => {
 
 
       * autoPost(Time)
-          - Time?: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), optional
+          - Time?: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), optional, 
+          
+          Default: `60000`
 
           `Amount of time betwen each post !must be 60000 or above!`,
 
