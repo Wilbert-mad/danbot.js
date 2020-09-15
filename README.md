@@ -25,24 +25,49 @@ npm install danbot.js
 # Examples
 
 ```js
+// import modules
 const Discod = require('discord.js');
 const danbotjs = require('danbot.js');
+
+// Create instanceof client
 const client = new Discod.Client();
 
+// Log in the Client
 client.login('Token');
+// NOTE: It is important to login to discord
+// before creating the host class
 
+// Create your host class
 const host = new danbotjs.Host(client, 'key');
 
+// Client class ready event
 client.on('ready', async () => {
   console.log('ready');
   
+  // Await server bot info
   const res = await host.info();
+  // post current info to server
   await host.post();
+  // Log Server bot response
   console.log(res);
 });
-
+/*
+ * NOTE: The events/methods arent limited to
+ * the clients "ready" event!
+ */
+ 
+// Host evnt emited on .post()
 host.on('post', () => {
   console.log('I have Posted');
+});
+```
+
+Message Event Examples
+```js
+client.on('message', (msg) => {
+  if (msg.content === 'post') {
+    host.post();
+  }
 });
 ```
 
@@ -71,6 +96,7 @@ host.on('post', () => {
 ## Classes
 
   - **Host** extends Base
+  
     ```js
       new danbotjs.Host(client, key)
     ```
@@ -88,9 +114,8 @@ host.on('post', () => {
       ```
 
   - **Base** extends EventEmitter
-    ```js
-      new danbotjs.Host(Bot, key)
-    ```
+  
+  
     Paremeter: (Bot: [Client](https://discord.js.org/#/docs/main/stable/class/Client) or [ShardingManager](https://discord.js.org/#/docs/main/stable/class/ShardingManager), key: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))
 
 
