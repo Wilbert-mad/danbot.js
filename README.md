@@ -109,7 +109,7 @@ client.on('message', (msg) => {
           
           Default: `60000`
 
-          `Amount of time betwen each post !must be 60000 or above!`,
+          `Amount of time betwen each post (In milliseconds) !must be 60000 or above!`,
 
           returns: Promise<[void](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)>
       ```js
