@@ -22,6 +22,13 @@ class ClientHost extends Base {
 
     // If key is formated wrong it will reformat
     if (!this.key.startsWith('danbot-')) this.key = `danbot-${this.key}`;
+
+    /**
+     * whether you are auto posting
+     * @type {boolean}
+     * @public
+     */
+    this.posting = false;
   }
 
   /**
@@ -33,11 +40,17 @@ class ClientHost extends Base {
         if (Time < 60000) throw new Error('Time must be above or 60000');
         if (typeof Time !== 'number') throw new Error('Invalid input "Time" as number');
         this.emit('autoPosting');
+        this.posting = true;
         this.post();
 
         setInterval(async() => {
-          await this.post();
+          if (this.posting) {
+            await this.post();
+          } else {
+            return;
+          }
         }, Time);
+
         resolve();
       } catch (error) {
         this.emit('error', (error));
@@ -45,6 +58,23 @@ class ClientHost extends Base {
       }
     });
     return post;
+  }
+
+  /**
+   * @returns {Promise<void>}
+   */
+  autoStop() {
+    const stop = new Promise((resolve, reject) => {
+      try {
+        this.emit('stop');
+        this.posting = false;
+        resolve();
+      } catch (error) {
+        this.emit('error', (error));
+        reject(error);
+      }
+    });
+    return stop; 
   }
 }
 

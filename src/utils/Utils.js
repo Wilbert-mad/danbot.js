@@ -10,7 +10,7 @@ class Utils {
    * send request to host
    * @param {string} method request type
    * @param {string} endpoint request path
-   * @param {object} data options for request
+   * @param {object} [data] options for request
    * @returns {Promise<void>}
    */
   static async request(method, endpoint, data) {
@@ -131,11 +131,11 @@ class Utils {
    * @returns {*}
    */
   static async getUserID(data) {
-    if (data.Bot.shard) {
+    if (data.Bot.shard == 0) {
       return (await data.Bot.broadcastEval('this.user.id'))[0];
     } else {
       return data.Bot.user.id;
-    }
+    } 
   }
 }
 

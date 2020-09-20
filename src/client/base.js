@@ -6,8 +6,8 @@ const Utils = require('../utils/Utils');
  * @extends {EventEmitter}
  */
 class Base extends EventEmitter {
-  constructor(Bot, ApiKey) {
-    super(Bot, ApiKey);
+  constructor(Bot, ApiKey, options) {
+    super(Bot, ApiKey, options);
 
     /**
      * @type {*}
@@ -54,8 +54,7 @@ class Base extends EventEmitter {
     };
 
     const res = await Utils.request('post', `bot/${userID}/stats`, dataBody);
-
-    console.log(res);
+    this.emit('REQUEST', (res));
 
     const post = new Promise((resolve, reject) => {
       try {
@@ -99,6 +98,7 @@ class Base extends EventEmitter {
    */
   async info() {
     const res = await Utils.request('get', `bot/${(await Utils.getUserID(this))}/info`);
+    this.emit('REQUEST', (res));
 
     const data = await res.body;
 
